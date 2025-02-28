@@ -1,29 +1,20 @@
 const express=require("express");
 const router=express.Router();
+const {getallcontact,getidcontact,createcontact,updatecontact,deletecontact}=require("../controllers/controllerscontact")
 
 //get all contacts
-router.route("/").get((req,res)=>{
-    res.send("Get all the contacts from diary ");
-});
+router.route("/").get(getallcontact);
 
 //get specified contact with given id
-router.route("/:id").get((req,res)=>{
-    res.send(`Get the contact with id ${req.params.id}`)
-});
+router.route("/:id").get(getidcontact);
 
 //create contact with post operation
-router.route("/").post((req,res)=>{
-    res.send(`creating the contact`)
-});
+router.route("/").post(createcontact);
 
 //Update contact with the PUT operation
-router.route("/:id").put((req,res)=>{
-    res.send(`Updating the contact with the given id ${req.params.id}`)
-});
+router.route("/:id").put(updatecontact);
 
 //Deleting the contact with given id
-router.route("/:id").delete((req,res)=>{
-    res.send(`deleting the contact with the ${req.params.id}`)
-});
+router.route("/:id").delete(deletecontact);
 
 module.exports=router;
