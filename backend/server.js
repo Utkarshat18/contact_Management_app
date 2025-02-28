@@ -9,6 +9,7 @@ const port=process.env.PORT || 6000;
 //     res.send("Get all the contacts");
 // });
 
+app.use(express.json());//work as a middleware to accept the request body from server
 app.use("/api/contacts",require('./Routes/contactRoutes.js'));
 
 //to get the json message
