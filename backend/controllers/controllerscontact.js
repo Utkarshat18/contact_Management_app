@@ -1,6 +1,12 @@
 //to get all the contacts
 const getallcontact=(req,res)=>{
     console.log("body request :",req.body);
+    const {name,age,phonenumber}=req.body;
+    if(!name || !age || !phonenumber)
+    {
+        res.status(400);
+        throw new Error ("All fields are mandatory");
+    }
     res.json({message:"Get all the contacts"});
 }
 
