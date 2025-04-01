@@ -1,7 +1,10 @@
-const asyncHandler=require("express-async-handler");    
+const asyncHandler=require("express-async-handler");   
+//Without asyncHandler, you would need to manually wrap every async function with try-catch, which is repetitive.
+//With asyncHandler, unhandled errors are automatically passed to Express's error-handling middleware. 
 
 //to get all the contacts
 const getallcontact=asyncHandler(async(req,res)=>{
+    console.log("Request received for getallcontact");
     console.log("body request :",req.body);
     const {name,age,phonenumber}=req.body;
     if(!name || !age || !phonenumber)
