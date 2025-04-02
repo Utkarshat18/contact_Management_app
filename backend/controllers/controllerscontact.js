@@ -11,7 +11,14 @@ const getallcontact=asyncHandler(async(req,res)=>{
 
 //to get one specific contact with the id
 const getidcontact=asyncHandler(async(req,res)=>{
-    res.json({message:`get the contact with the id ${req.params.id}`})
+    const contact=await Contact.findById(req.params.id);
+    if(!contact)
+    {
+        res.status(404);
+        throw new Error ("Contact not found");
+    }
+
+    res.status(200).json(contact);
 })
 
 //to create a new contact
