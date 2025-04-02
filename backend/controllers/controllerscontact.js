@@ -56,7 +56,15 @@ const updatecontact=asyncHandler(async(req,res)=>{
 
 //deleting the contact
 const deletecontact=asyncHandler(async(req,res)=>{
-    res.json({message:`deleting the given contact with id ${req.params.id}`})
+    console.log("delete operation started")
+    const contact=await Contact.findById(req.params.id);
+    if(!contact)
+    {
+        res.status(404);
+        throw new Error ("Contact not found");
+    }
+    await Contact.findByIdAndDelete(req.params.id);
+    res.status(200).json(contact);
 })
 
 module.exports={getallcontact,getidcontact,createcontact,updatecontact,deletecontact};
