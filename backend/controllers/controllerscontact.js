@@ -1,17 +1,11 @@
 const asyncHandler=require("express-async-handler");   
+const Contact=require("../models/contactModel");
 //Without asyncHandler, you would need to manually wrap every async function with try-catch, which is repetitive.
 //With asyncHandler, unhandled errors are automatically passed to Express's error-handling middleware. 
 
 //to get all the contacts
 const getallcontact=asyncHandler(async(req,res)=>{
-    console.log("Request received for getallcontact");
-    console.log("body request :",req.body);
-    const {name,age,phonenumber}=req.body;
-    if(!name || !age || !phonenumber)
-    {
-        res.status(400);
-        throw new Error ("All fields are mandatory");
-    }
+    const contacts=await Contact.find();
     res.json({message:"Get all the contacts"});
 });
 
@@ -22,7 +16,19 @@ const getidcontact=asyncHandler(async(req,res)=>{
 
 //to create a new contact
 const createcontact=asyncHandler(async(req,res)=>{
-    res.json({message:`creating a new contact`})
+    console.log("Request received for creating contact");
+    console.log("body request :",req.body);
+    const {name,age,phonenumber}=req.body;
+    if(!name || !age || !phonenumber)
+    {
+        res.status(400);
+        throw new Error ("All fields are mandatory");
+    }
+    const contact=await Contact.create({
+        name,age,phonenumber,
+    });
+    res.json(contact);
+    //res.json({message:`creating a new contact`})
 })
 
 //updating the given contact
