@@ -5,8 +5,17 @@ const Contact=require("../models/contactModel");
 
 //to get all the contacts
 const getallcontact=asyncHandler(async(req,res)=>{
-    const contacts=await Contact.find();
-    res.json({message:"Get all the contacts"});
+    // const contacts=await Contact.find();
+    // res.json({message:"Get all the contacts"});
+    console.log("Fetching all contacts...");
+    
+    const contacts = await Contact.find(); // Fetch all contacts from DB
+
+    if (!contacts || contacts.length === 0) {
+        res.status(404);
+        throw new Error("No contacts found");
+    }
+    res.status(200).json(contacts);
 });
 
 //to get one specific contact with the id
