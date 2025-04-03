@@ -14,6 +14,7 @@ const port=process.env.PORT || 6000;
 // });
 app.use(express.json());//work as a middleware to accept the request body from server
 app.use("/api/contacts",require('./Routes/contactRoutes.js'));
+app.use("/api/user",require('./Routes/userRoutes.js'));
 app.use(errorHandler);
 
 //to get the json message

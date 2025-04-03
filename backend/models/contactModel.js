@@ -18,4 +18,3 @@ const contactSchema=mongoose.Schema({
 })
 
 module.exports=mongoose.model("Contact",contactSchema);
-//45 minutes
