@@ -4,20 +4,20 @@ const asyncHandler=require("express-async-handler");
 //router post api/user/register
 //public access
 const registerUser=asyncHandler(async (req,res)=>{
-    res.json("Register the user");
+    res.json({message:"Register the user"})
 });
 
 //login a user
 //router api/user/login
 //public access
 const loginUser=asyncHandler(async(req,res)=>{
-    res.json("Login the user");
+    res.json({message:"Login the user"});
 });
 
 //current user
 //router api/user/current
 const currentUser=asyncHandler(async(req,res)=>{
-    res.json("current user ");
+    res.json({message:"current user "});
 });
 
 module.exports={registerUser,loginUser,currentUser};
