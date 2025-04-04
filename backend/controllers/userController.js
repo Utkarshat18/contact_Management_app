@@ -1,5 +1,6 @@
 const asyncHandler=require("express-async-handler");
 const bcrypt=require("bcrypt");
+const jwt=require("jsonwebtoken");
 const User=require("../models/userModel");
 
 //register a user
@@ -45,8 +46,33 @@ const registerUser=asyncHandler(async (req,res)=>{
 //router api/user/login
 //public access
 const loginUser=asyncHandler(async(req,res)=>{
+    const {email, password}=req.body;
+    if(!email || !password)
+        {
+            res.status(400);
+            throw new Error("All fiels are Mandatory");
+        }
+        const user=await User.findOne({email});
+        //now all database user information will store in user
+        //comparing password with hashed password
+        if(user && (await bcrypt.compare(password,user.password)))
+            {
+                const accesstoken=jwt.sign({
+                    user:{
+                        username:user.username,
+                        email:user.email,
+                        id:user.id,
+            },
+        },
+        process.env.ACCESS_TOKEN_SECERT,
+        {
+            expiresIn:"5m"
+        })
+        res.status(200).json({accesstoken});
+    }else{
+        throw new Error("email or password is not valid ");
+    }
     console.log("login user");
-    res.json({message:"Login the user"});
 });
 
 //current user
