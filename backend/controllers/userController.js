@@ -6,6 +6,7 @@ const User=require("../models/userModel");
 //register a user
 //router post api/user/register
 //public access
+
 const registerUser=asyncHandler(async (req,res)=>{
     console.log("Register new user");
     console.log("request Body",req.body);
@@ -78,7 +79,7 @@ const loginUser=asyncHandler(async(req,res)=>{
 //current user
 //router api/user/current
 const currentUser=asyncHandler(async(req,res)=>{
-    res.json({message:"current user "});
+    res.json(req.user);
 });
 
 module.exports={registerUser,loginUser,currentUser};
